@@ -1,8 +1,8 @@
-import { User } from "../models/user.model"
-import { ApiError } from "../utils/ApiError"
-import { ApiResponse } from "../utils/ApiResponse";
-import { asyncHandler } from "../utils/asynchandler";
-import { uploadOnCloudinary } from "../utils/Cloudinary";
+import { User } from "../models/user.model.js"
+import { ApiError } from "../utils/ApiError.js"
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { asyncHandler } from "../utils/asynchandler.js";
+import { uploadOnCloudinary } from "../utils/Cloudinary.js";
 
 
 const generateAccessAndRefreshTokens = async (userId) => {

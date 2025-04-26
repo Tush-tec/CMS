@@ -4,6 +4,8 @@ import dotenv from "dotenv"
 import cookieParser from "cookie-parser"
 import { urlencoded } from "express"
 import cors from "cors"
+import { fileURLToPath } from "url"
+
 
 
 dotenv.config()
@@ -31,12 +33,19 @@ app.get("/", (req,res) => {
 })
 
 
-import userRouter from "./routes/user.routes.js"
-import adminRouter from "./routes/user.routes.js"
+import adminRouter from "./routes/admin.route.js"
+import userRouter from "./routes/auth.routes.js"
+import roleRouter from "./routes/role.routes.js"
+import path from "path"
 
 
 app.use("/api/auth/user", userRouter)
 app.use("/api/auth/admin", adminRouter)
+app.use("/api/role", roleRouter)
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 

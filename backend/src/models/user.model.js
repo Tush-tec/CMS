@@ -38,9 +38,9 @@ const userSchema =  new Schema(
         refreshToken:{
             type:String
         },
-        role : {
-            type : mongoose.Types.ObjectId(),
-            ref : "Role"
+        role: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Role"
         }
     },
     {
