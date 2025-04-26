@@ -1,3 +1,4 @@
+import { Role } from "../models/role.model.js";
 import { User } from "../models/user.model.js"
 import { ApiError } from "../utils/ApiError.js"
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -29,7 +30,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
 
 
 const register = asyncHandler(async (req, res) => {
-    const { username, email, fullname, password } = req.body;
+    const { username, email, fullname ,password, role } = req.body;
   
     if (!username || !email || !fullname || !password) {
       throw new ApiError(400, "Please fill all fields");
@@ -71,19 +72,15 @@ const register = asyncHandler(async (req, res) => {
       throw new ApiError(400, "Failed to upload avatar");
     }
   
-    const defaultRole = await Role.findOne({ name: "user" });
-  if (!defaultRole) {
-    throw new ApiError(500, "Default role not found in database");
-  }
+
   
       const createUser = await User.create({
         username,
-        storedUserName, 
         email,
         fullname,
         password,
         avatar: avatar.url,
-        role : defaultRole._id
+        role 
       });
   
   

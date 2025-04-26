@@ -29,7 +29,8 @@ const addrole = asyncHandler(async (req, res) => {
 
     const role = await Role.create(
         {
-            name
+            name,
+            
         }
     )
 

@@ -10,8 +10,9 @@ const storage = multer.diskStorage({
 
     destination: (req, file, cb) => {
         const uploadPath = process.env.NODE_ENV === 'production' 
-            ? os.tmpdir()   
-            : path.join(__dirname, '..', 'public');  
+    ? os.tmpdir()
+    : path.join(__dirname, '..', 'uploads');
+
 
         cb(null, uploadPath);
     },

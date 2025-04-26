@@ -33,14 +33,13 @@ const userSchema =  new Schema(
         password:{
             type:String,
             required:true,
-            required: function() { return !this.googleId; }
         },
         refreshToken:{
             type:String
         },
         role: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Role"
+            ref: "Role",
         }
     },
     {
@@ -59,11 +58,12 @@ userSchema.pre("save",async function (next) {
 })
 
 
-userSchema.method.isPasswordCorrect = async function(password) {
+userSchema.methods.isPasswordCorrect = async function(password) {
     if (!this.password) throw new Error("Password hash is missing");
     return await bcrypt.compare(password, this.password);
 
 }
+
 
 
 userSchema.methods.generateAccessToken =  function(){
@@ -79,7 +79,7 @@ userSchema.methods.generateAccessToken =  function(){
         },
         process.env.ACCESS_TOKEN_SECRET,
         {
-            expiresIn: process.env.ACCESS_TOKEN_EXPIRE
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRY
         }
     )
 }
@@ -92,7 +92,7 @@ userSchema.methods.generateRefreshToken = async function(){
         process.env.REFRESH_TOKEN_SECRET,
 
         {
-            expiresIn: process.env.REFRESH_TOKEN_EXPIRE
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
         }
     )
 }

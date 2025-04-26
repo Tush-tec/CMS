@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser"
 import { urlencoded } from "express"
 import cors from "cors"
 import { fileURLToPath } from "url"
+import path from "path"
+
 
 
 
@@ -15,7 +17,9 @@ const app = express()
 
 app.use(express.json())
 app.use(urlencoded({extended: true})) 
-app.use(cookieParser)
+app.use(cookieParser())
+
+
 
 
 app.use(
@@ -27,6 +31,14 @@ app.use(
     )
 )
 
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
+
 app.get("/", (req,res) => {
 
     res.send("Server is running ")
@@ -36,16 +48,12 @@ app.get("/", (req,res) => {
 import adminRouter from "./routes/admin.route.js"
 import userRouter from "./routes/auth.routes.js"
 import roleRouter from "./routes/role.routes.js"
-import path from "path"
 
 
 app.use("/api/auth/user", userRouter)
 app.use("/api/auth/admin", adminRouter)
 app.use("/api/role", roleRouter)
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 
