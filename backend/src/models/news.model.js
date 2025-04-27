@@ -17,7 +17,6 @@ const newsSchema = new Schema(
         author :{
             type : mongoose.Types.ObjectId,
             ref : "User",
-            required : true
         },
         category : {
             type : mongoose.Types.ObjectId,
